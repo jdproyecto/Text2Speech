@@ -10,12 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-/**
- * 
- * @author JUAN FERNANDEZ
- *La primera prueba del malaguita.
- *
- */
 public class Main extends Activity implements TextToSpeech.OnInitListener {
 	/** Called when the activity is first created. */
 
