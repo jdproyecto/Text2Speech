@@ -17,8 +17,8 @@ import android.widget.ToggleButton;
  *
  */
 public class Main extends Activity implements TextToSpeech.OnInitListener {
+	
 	/** Called when the activity is first created. */
-
 	private TextToSpeech tts;
 	private Button btnSpeak;
 	private EditText txtText;
