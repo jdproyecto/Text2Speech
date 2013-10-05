@@ -1,7 +1,6 @@
 package com.sunil.text2speech;
 
 import java.util.Locale;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -22,15 +21,23 @@ public class Main extends Activity implements TextToSpeech.OnInitListener {
 
 	
 	public void toggleClicked(View v) {
-		language = (ToggleButton) findViewById(R.id.language);
-		if (language.getText().equals("English")){
-			Locale.setDefault(Locale.US);
-			this.onInit(0);
-		}else{
-			Locale.setDefault(new Locale("es", "ES"));
-			this.onInit(0);
-		}
 		Log.i("TAG","toggle");
+		String msg = getResources().getString(R.string.msg_english);
+		language = (ToggleButton) findViewById(R.id.language);
+		if (language.getText().equals(msg)){
+			this.setMVEnghish();
+		}else{
+			this.setMVSpanish();
+		}
+		this.setLanguageToSpeak();
+	}
+	
+	private void setMVSpanish(){
+		Locale.setDefault(new Locale("es", "ES"));
+	}
+	
+	private void setMVEnghish(){
+		Locale.setDefault(Locale.US);
 	}
 	
 	@Override
@@ -64,16 +71,21 @@ public class Main extends Activity implements TextToSpeech.OnInitListener {
 
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
-			int result = tts.setLanguage(Locale.getDefault());
-			if (result == TextToSpeech.LANG_MISSING_DATA
-					|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
-				Log.e("TTS", "This Language is not supported");
-			} else {
-				btnSpeak.setEnabled(true);
-				speakOut();
-			}
+			this.setMVSpanish();
+			this.setLanguageToSpeak();
 		} else {
 			Log.e("TTS", "Initilization Failed!");
+		}
+	}
+
+	private void setLanguageToSpeak() {
+		int result = tts.setLanguage(Locale.getDefault());
+		if (result == TextToSpeech.LANG_MISSING_DATA
+				|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
+			Log.e("TTS", "This Language is not supported");
+		} else {
+			btnSpeak.setEnabled(true);
+			speakOut();
 		}
 	}
 
